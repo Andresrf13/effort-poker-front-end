@@ -1,0 +1,5 @@
+<div class="myContainer">
+    <div *ngFor="let item of numbers">
+        <app-card [displayValue]="item" (cardClickedEvent)="cardClicked($event)" ></app-card>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+<div class="result">
+    <h1 class="title badge bg-success" > Average {{total | number: '1.0-2' }}</h1>
+</div>
+
+<div class="progressItemContainer"  *ngFor="let item of progressData">
+    <h6 class="title">total votes for {{item.vote}}</h6>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" [style.width.%]="item.percentage"
+            [attr.aria-valuenow]="item.percentage" aria-valuemin="0" [style.background-color]="item.color"
+            aria-valuemax="100">{{item.percentage}}%</div>
+    </div>
+</div>

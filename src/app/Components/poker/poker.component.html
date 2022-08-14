@@ -1,0 +1,9 @@
+<div class="actions">
+        <button (click)="showResultsClicked()" *ngIf="!showResults" type="button" class="btn btn-primary">Show Results</button>
+        <button (click)="showVotesClicked()" *ngIf="showResults" type="button" class="btn btn-primary">Go to Vote!</button>
+</div>
+<div class="myContainer">
+    <app-room-list [items]="room.users"></app-room-list>
+    <app-estimation-board *ngIf="!showResults" (valueClickedEvent)="valueClicked($event)" [room]="room"></app-estimation-board>
+    <app-results *ngIf="showResults" [room]="room"></app-results>
+</div>

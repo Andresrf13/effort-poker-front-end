@@ -1,0 +1,29 @@
+<div *ngIf="showRoomCreated" class="myAlert alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Room Created!</strong> The room {{createdRoom}} was created successfully.
+    <button type="button" (click)="closeSuccessAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="myContainer card text-end" style="width: 25rem;">
+    <div class="card-body">
+        <h5 class="card-title">Create a new Room</h5>
+        <div class="input_field">
+            <span class="card-text">Room name</span>
+            <input name="name" required type="text" class="form-control" [(ngModel)]="roomName" placeholder="Room name">
+        </div>
+
+        <div class="input_field">
+            <span class="card-text">Description</span>
+            <input type="text" class="form-control" [(ngModel)]="description" placeholder="Description">
+        </div>
+
+        <div class="input_field">
+            <span class="card-text">Estimation Method</span>
+            <select class="form-select" [(ngModel)]="estimationMethod">
+                <option value="0">Fibonacci</option>
+                <option value="1">sequence</option>
+            </select>
+        </div>
+
+        <button (click)="createRoom($event)" class="btn btn-primary">Create Room</button>
+    </div>
+</div>

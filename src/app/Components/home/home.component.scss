@@ -1,0 +1,21 @@
+@use '../../../styles/variables' as *;
+
+.myContainer {
+    display: flex;
+    width: 100%;
+    height: calc(100% - 57px);
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+    app-room-list {
+        flex-grow: 1;
+        padding: $default_margin;
+    }
+
+    app-add-room {
+        flex-grow: 0.5;
+        padding: $default_margin;
+    }
+}
