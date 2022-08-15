@@ -11,6 +11,8 @@ import { PokerService } from 'src/app/services/poker.service';
 export class UserNameModalComponent implements OnDestroy, AfterContentInit {
   roomCreated$: any;
 
+  btnDisabled = true;
+
   constructor(@Inject(MAT_DIALOG_DATA) private data: any,
     public dialogRef: MatDialogRef<UserNameModalComponent>,
     private pokerService: PokerService,
@@ -35,5 +37,8 @@ export class UserNameModalComponent implements OnDestroy, AfterContentInit {
     this.pokerService.openRoom(this.userName, this.data);
   }
 
+  ngAfterContentChecked(): void {
+    this.btnDisabled = this.userName.trim().length === 0;
+  }
 
 }

@@ -1,7 +1,7 @@
 <h2 mat-dialog-title class="modal-title">Username</h2>
-<mat-dialog-content class="mat-typography ">
-    <input [(ngModel)]="userName" class="form-control" type="text" placeholder="choose your username" />
+<mat-dialog-content style="height: 55px">
+    <input [(ngModel)]="userName" class="form-control usernameInput" type="text" placeholder="Choose your username" />
 </mat-dialog-content>
 <div mat-dialog-actions class="modal-footer">
-    <button mat-button (click)="openRoom()" cdkFocusInitial class="btn btn-primary">Accept</button>
+    <button mat-button [disabled]="btnDisabled" (click)="openRoom()" cdkFocusInitial class="btn btn-primary">Accept</button>
 </div>

@@ -1,3 +1,11 @@
 mat-dialog-content {
     overflow: hidden;
 }
+
+.usernameInput {
+    margin: 10px;
+}
+
+.usernameInput:focus {
+    box-shadow : 1px 1px 7px 7px rgb(13 110 253 / 25%);
+}
