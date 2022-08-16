@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PokerService } from 'src/app/services/poker.service';
+import { Room } from 'src/contracts/room';
+import { User } from 'src/contracts/user';
 
 @Component({
   selector: 'app-navbar',
@@ -7,13 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private pokerService: PokerService) {
+
+   }
 
   ngOnInit(): void {
   }
 
-  searchRoom(event: any): void {
-    console.log(event);
+  get user(): User {
+    return this.pokerService.user;
+  }
+
+  get room(): Room {
+    return this.pokerService.room;
   }
 
 }

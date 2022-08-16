@@ -13,8 +13,9 @@
             </ul>
         </div>
         <div class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search Room" aria-label="Search">
-            <button class="btn btn-outline-success" (click)="searchRoom($event)">Search</button>
-        </div>
+            <span class="navbar-text">{{user.name}}</span>
+            <span class="navbar-text"> &nbsp;&nbsp;&nbsp;</span>
+            <span class="navbar-text">{{room.name | uppercase}}</span>
+          </div>
     </div>
 </nav>

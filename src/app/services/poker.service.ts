@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
 import { EstimationMethods } from 'src/contracts/estimationMethods';
+import { Room } from 'src/contracts/room';
 import { User } from 'src/contracts/user';
 import { environment } from 'src/environments/environment';
 
@@ -14,8 +15,13 @@ export class PokerService {
   private socket: Socket;
   private url = environment.url;
 
+  public user: User;
+  public room: Room;
+
   constructor() { 
     this.socket = io(this.url, { transports: ['websocket', 'polling', 'flashsocket'] });
+    this.user = new User();
+    this.room = new Room();
   }
 
   join(): void {
@@ -119,6 +125,19 @@ export class PokerService {
         observer.next(data);
       });
     });
+  }
+
+  registerUser(user: User): void {
+    this.user = user;
+  }
+
+  registerRoom(room: Room): void {
+    this.room = room;
+  }
+
+  leaveRoom(): void {
+    this.user = new User();
+    this.room = new Room();
   }
 
 }

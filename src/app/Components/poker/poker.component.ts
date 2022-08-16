@@ -94,6 +94,8 @@ export class PokerComponent implements OnInit, OnDestroy {
       this.processUsersRoom(data);
       this.showResults = this.calculateState(data.room.stateRoom);
       this.cardsService.registerRoom(this.room);
+      this.pokerService.registerUser(this.user);
+      this.pokerService.registerRoom(this.room);
     });
   }
 
@@ -122,10 +124,6 @@ export class PokerComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-
-  }
-
   showResultsClicked(): void {
     this.pokerService.showResults(this.room.id);
   }
@@ -136,6 +134,10 @@ export class PokerComponent implements OnInit, OnDestroy {
 
   valueClicked(value: string): void {
     this.user.vote = this.user.status = value;
+  }
+
+  ngOnDestroy(): void {
+    this.pokerService.leaveRoom();
   }
 
 }
