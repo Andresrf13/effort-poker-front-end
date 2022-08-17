@@ -136,6 +136,7 @@ export class PokerService {
   }
 
   leaveRoom(): void {
+    this.socket.emit('leave-room', this.room.id);
     this.user = new User();
     this.room = new Room();
   }

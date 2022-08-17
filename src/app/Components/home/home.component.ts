@@ -16,9 +16,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.pokerService.getRooms().subscribe(data => {
+      this.processRooms(data);
       this.rooms = data;
     });
     this.pokerService.join();
+  }
+
+  processRooms(data: any) {
+    data.forEach((room: any) => {
+      room.status = room.users.length;
+    } );
   }
 
   roomClicked(room: any) {
