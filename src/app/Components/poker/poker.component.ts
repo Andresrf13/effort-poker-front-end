@@ -118,7 +118,8 @@ export class PokerComponent implements OnInit, OnDestroy {
           width: '250px',
           enterAnimationDuration: '100ms',
           exitAnimationDuration: '100ms',
-          data: roomId
+          data: roomId,
+          disableClose: true
         });
       }
     });
