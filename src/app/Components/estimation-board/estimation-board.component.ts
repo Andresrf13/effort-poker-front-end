@@ -32,8 +32,8 @@ export class EstimationBoardComponent implements OnInit {
   }
 
   getNumbers(): string[] {
-    let result = [];
-    switch (this.currentEstimation) {
+    let result: any[]= [];
+    switch (Number(this.currentEstimation)) {
       case EstimationMethods.fibonacci:
         result = fibonacciOptions;
         break;
