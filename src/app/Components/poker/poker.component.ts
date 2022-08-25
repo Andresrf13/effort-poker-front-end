@@ -138,6 +138,7 @@ export class PokerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.dialog.closeAll();
     this.pokerService.leaveRoom();
   }
 

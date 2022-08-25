@@ -141,4 +141,21 @@ export class PokerService {
     this.room = new Room();
   }
 
+
+  userNotFound(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('user-not-found', () => {
+        observer.next();
+      });
+    });
+  }
+
+  roomNotFound(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('room-not-found', () => {
+        observer.next();
+      });
+    });
+  }
+
 }
