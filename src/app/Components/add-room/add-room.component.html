@@ -1,5 +1,5 @@
-<div *ngIf="showRoomCreated" class="myAlert alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Room Created!</strong> The room {{createdRoom}} was created successfully.
+<div *ngIf="showRoomCreated" [ngClass]="messageClass" class="myAlert alert alert-dismissible fade show" role="alert">
+    <strong>{{title}}</strong> {{message}}
     <button type="button" (click)="closeSuccessAlert()" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 

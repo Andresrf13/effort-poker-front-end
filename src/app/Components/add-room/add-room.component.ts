@@ -15,9 +15,25 @@ export class AddRoomComponent implements OnInit {
       this.clearFields();
       this.showRoomCreated = true;
       this.createdRoom = data;
+      this.title = 'Room Created!';
+      this.message = 'The room ' + this.createdRoom + ' has been created!';
+      this.messageClass = 'alert-success';
+    });
+
+    this.pokerService.roomExist().subscribe(data => {
+      this.title = 'Room not Created!';
+      this.message = 'The room ' + this.createdRoom + ' already exists, try another name!';
+      this.messageClass = 'alert-danger';
+      this.showRoomCreated = true;
     });
   }
+
+  messageClass: string = 'alert-success';
   
+  title = '';
+
+  message = '';
+
   createdRoom: string = '';
 
   showRoomCreated = false;

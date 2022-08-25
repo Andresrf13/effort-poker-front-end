@@ -44,6 +44,14 @@ export class PokerService {
     });
   }
 
+  roomExist(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('room-exists', (data) => {
+        observer.next(data);
+      });
+    });
+  }
+
   userJoined(): Observable<any> {
     return new Observable(observer => {
       this.socket.on('user-joined', (data) => {
