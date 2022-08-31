@@ -21,6 +21,7 @@ import { HomeComponent } from './Components/home/home.component';
 import { EstimationBoardComponent } from './Components/estimation-board/estimation-board.component';
 import { CardComponent } from './Components/card/card.component';
 import { ResultsComponent } from './Components/results/results.component';
+import { LoadingComponent } from './Components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ResultsComponent } from './Components/results/results.component';
     HomeComponent,
     EstimationBoardComponent,
     CardComponent,
-    ResultsComponent
+    ResultsComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,92 @@
+@use '../../../styles/variables' as *;
+
+#orbit {
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    border-radius: 50%;
+    border: 2px solid $main_color;
+    background: $main_color;
+    animation: out-circle $time ease-in-out infinite;
+
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        width: 30px;
+        height: 30px;
+        background: white;
+        border-radius: 50%;
+        border: 2px solid $main_color;
+        animation: inner-circle $time ease-in-out infinite;
+    }
+
+    #dots {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        animation: rotate $time linear infinite;
+
+        &:before,
+        &:after {
+            display: block;
+            content: '';
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: $main_color;
+            position: absolute;
+            top: calc(50% - 10px);
+        }
+
+        &:before {
+            left: -35px;
+        }
+
+        &:after {
+            right: -35px;
+        }
+    }
+}
+
+@keyframes out-circle {
+
+    0%,
+    100% {
+        border-width: 4px;
+    }
+
+    50% {
+        border-width: 12px;
+    }
+}
+
+@keyframes inner-circle {
+
+    0%,
+    100% {
+        border-width: 2px;
+    }
+
+    40% {
+        border-width: 12px;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    100% {
+        transform: rotateZ(360deg);
+    }
+
+}
