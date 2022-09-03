@@ -1,0 +1,36 @@
+@use '../styles/variables' as *;
+
+footer {
+    position: static;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    .content {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        gap: $default_margin;
+        color: $font_color;
+
+        img {
+            width: 1em;
+            height: 1em;
+        }
+
+        a {
+            text-decoration: dotted;
+            color: inherit;
+        }
+    }
+}
+
+:host {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    .fill_space {
+        flex-grow: 1;
+    }
+}
+

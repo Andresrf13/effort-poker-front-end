@@ -9,7 +9,7 @@
     align-items: center;
 
 
-    app-room-list {
+    app-room-list, app-loading {
         flex-grow: 1;
         padding: $default_margin;
     }
