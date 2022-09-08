@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PokerService } from 'src/app/services/poker.service';
 import { ProgressResult } from 'src/contracts/progressResult';
 import { Room } from 'src/contracts/room';
@@ -8,20 +8,21 @@ import { Room } from 'src/contracts/room';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
 
   @Input() room: Room | undefined;
 
   progressData: ProgressResult[] = [];
 
   total = 0;
+  getResultsSubscription: any;
 
   constructor(private pokerService: PokerService) {
   }
     
 
   ngOnInit(): void {
-    this.pokerService.getResults().subscribe(data => {
+    this.getResultsSubscription = this.pokerService.getResults().subscribe(data => {
       this.progressData = data.results.map((x : any) => {
         const result = new ProgressResult();
         result.color = this.generateRandomColor();
@@ -41,6 +42,10 @@ export class ResultsComponent implements OnInit {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+  }
+
+  ngOnDestroy(): void {
+    this.getResultsSubscription?.unsubscribe();
   }
 
 }

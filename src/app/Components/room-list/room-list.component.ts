@@ -13,8 +13,6 @@ export class RoomListComponent  {
 
   @Output() itemClickedEvent = new EventEmitter<any>();
 
-  constructor() { }
-
 
   itemClicked(room: any) {
     this.itemClickedEvent.emit(room);

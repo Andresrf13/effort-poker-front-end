@@ -20,6 +20,14 @@ export class PokerComponent implements OnInit, OnDestroy {
   public user: User = new User();
 
   public showResults = false;
+  navigateSubscription: any;
+  updateRoomSubscription: any;
+  getResultsSubscription: any;
+  userJoinedSubscription: any;
+  userJoinedRoomSubscription: any;
+  userVotedSubscription: any;
+  activeRouteSubscription: any;
+  otherUserVoteSubscription: any;
 
   constructor(public dialog: MatDialog, private pokerService: PokerService,
     private activatedRoute: ActivatedRoute, private cardsService: CardsService) {
@@ -33,13 +41,13 @@ export class PokerComponent implements OnInit, OnDestroy {
     this.pokerService.join();
   }
   navigateToResults() {
-    this.pokerService.navigateToResults().subscribe(data => {
+    this.navigateSubscription = this.pokerService.navigateToResults().subscribe(data => {
       this.showResults = this.calculateState(data.stateRoom);
     });
   }
 
   updatedRoom(): void {
-    this.pokerService.updatedRoom().subscribe((data: Room) => {
+    this.updateRoomSubscription = this.pokerService.updatedRoom().subscribe((data: Room) => {
       this.room = data;
       this.showResults = this.calculateState(data.stateRoom);
       this.user.vote = this.user.status = '?';
@@ -51,13 +59,13 @@ export class PokerComponent implements OnInit, OnDestroy {
   }
 
   registerGetResults() {
-    this.pokerService.getResults().subscribe(data => {
+    this.getResultsSubscription = this.pokerService.getResults().subscribe(data => {
       this.room = Object.assign(this.room, data.room);
     });
   }
 
   private registerOtherUserVoted() {
-    this.pokerService.otherUserVoted().subscribe(data => {
+    this.otherUserVoteSubscription = this.pokerService.otherUserVoted().subscribe(data => {
       data.users.forEach((element: User) => {
         element.status = element.vote;
         if( this.user.id === element.id) {
@@ -69,7 +77,7 @@ export class PokerComponent implements OnInit, OnDestroy {
   }
 
   private registerUserVoted() {
-    this.pokerService.userVoted().subscribe(data => {
+    this.userVotedSubscription = this.pokerService.userVoted().subscribe(data => {
       updateStatus(data);
       this.room = Object.assign(this.room, data);
     });
@@ -82,13 +90,13 @@ export class PokerComponent implements OnInit, OnDestroy {
   }
 
   private registerUserJoinedRoom() {
-    this.pokerService.userJoinedRoom().subscribe(data => {
+    this.userJoinedRoomSubscription = this.pokerService.userJoinedRoom().subscribe(data => {
       this.processUsersRoom(data);
     });
   }
 
   private registerUserJoined() {
-    this.pokerService.userJoined().subscribe(data => {
+    this.userJoinedSubscription = this.pokerService.userJoined().subscribe(data => {
       this.room = Object.assign(this.room, data.room);
       this.user = Object.assign(this.user, data.user);
       this.processUsersRoom(data);
@@ -111,7 +119,7 @@ export class PokerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(params => {
+    this.activeRouteSubscription = this.activatedRoute.params.subscribe(params => {
       const roomId = params['id'];
       if (roomId) {
         this.dialog.open(UserNameModalComponent, {
@@ -140,6 +148,14 @@ export class PokerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.dialog.closeAll();
     this.pokerService.leaveRoom();
+    this.navigateSubscription?.unsubscribe();
+    this.updateRoomSubscription?.unsubscribe();
+    this.getResultsSubscription?.unsubscribe();
+    this.userJoinedSubscription?.unsubscribe();
+    this.userJoinedRoomSubscription?.unsubscribe();
+    this.userVotedSubscription?.unsubscribe();
+    this.activeRouteSubscription?.unsubscribe();
+    this.otherUserVoteSubscription?.unsubscribe();
   }
 
 }

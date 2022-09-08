@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PokerService } from 'src/app/services/poker.service';
 import { EstimationMethods } from 'src/contracts/estimationMethods';
 
@@ -7,11 +7,21 @@ import { EstimationMethods } from 'src/contracts/estimationMethods';
   templateUrl: './add-room.component.html',
   styleUrls: ['./add-room.component.scss']
 })
-export class AddRoomComponent implements OnInit {
+export class AddRoomComponent implements OnDestroy {
+  roomSubscription: any;
+  roomExistSubscription: any;
+  messageClass: string = 'alert-success';  
+  title = '';
+  message = '';
+  createdRoom: string = '';
+  showRoomCreated = false;  
+  roomName: string = '';  
+  description: string = '';  
+  estimationMethod: EstimationMethods = EstimationMethods.fibonacci;
   
   
   constructor(private pokerService: PokerService) {
-    this.pokerService.roomCreated().subscribe(data => {
+    this.roomSubscription = this.pokerService.roomCreated().subscribe(data => {
       this.clearFields();
       this.showRoomCreated = true;
       this.createdRoom = data;
@@ -20,7 +30,7 @@ export class AddRoomComponent implements OnInit {
       this.messageClass = 'alert-success';
     });
 
-    this.pokerService.roomExist().subscribe(data => {
+    this.roomExistSubscription = this.pokerService.roomExist().subscribe(data => {
       this.title = 'Room not Created!';
       this.message = 'The room ' + this.createdRoom + ' already exists, try another name!';
       this.messageClass = 'alert-danger';
@@ -28,24 +38,7 @@ export class AddRoomComponent implements OnInit {
     });
   }
 
-  messageClass: string = 'alert-success';
   
-  title = '';
-
-  message = '';
-
-  createdRoom: string = '';
-
-  showRoomCreated = false;
-  
-  roomName: string = '';
-  
-  description: string = '';
-  
-  estimationMethod: EstimationMethods = EstimationMethods.fibonacci;
-  
-  ngOnInit(): void {
-  }
 
   clearFields(): void {
     this.roomName = '';
@@ -67,5 +60,10 @@ export class AddRoomComponent implements OnInit {
     }
 
     this.pokerService.createRoom(this.roomName, this.description, this.estimationMethod);
+  }
+
+  ngOnDestroy(): void {
+    this.roomSubscription?.unsubscribe();
+    this.roomExistSubscription?.unsubscribe();
   }
 }

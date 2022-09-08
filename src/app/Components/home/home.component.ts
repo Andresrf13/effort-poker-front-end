@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PokerService } from 'src/app/services/poker.service';
 
@@ -7,7 +7,8 @@ import { PokerService } from 'src/app/services/poker.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  getRoomsSubscription: any;
 
   constructor(private router: Router, private pokerService: PokerService) { }
 
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-    this.pokerService.getRooms().subscribe(data => {
+    this.getRoomsSubscription =  this.pokerService.getRooms().subscribe(data => {
       this.processRooms(data);
       this.rooms = data;
     });
@@ -35,6 +36,10 @@ export class HomeComponent implements OnInit {
         console.log('Navigation failed', e);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.getRoomsSubscription?.unsubscribe();
   }
 
 }
