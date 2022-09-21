@@ -49,6 +49,7 @@ export class PokerComponent implements OnInit, OnDestroy {
   updatedRoom(): void {
     this.updateRoomSubscription = this.pokerService.updatedRoom().subscribe((data: Room) => {
       this.room = data;
+      updateStatus(data);
       this.showResults = this.calculateState(data.stateRoom);
       this.user.vote = this.user.status = '?';
     });
@@ -68,7 +69,8 @@ export class PokerComponent implements OnInit, OnDestroy {
     this.otherUserVoteSubscription = this.pokerService.otherUserVoted().subscribe(data => {
       data.users.forEach((element: User) => {
         element.status = element.vote;
-        if( this.user.id === element.id) {
+        markClass(element);
+        if (this.user.id === element.id) {
           element.status = this.user.vote;
         }
       });
@@ -81,12 +83,6 @@ export class PokerComponent implements OnInit, OnDestroy {
       updateStatus(data);
       this.room = Object.assign(this.room, data);
     });
-
-    function updateStatus(data: any) {
-      data.users.forEach((element: User) => {
-        element.status = element.vote;
-      });
-    }
   }
 
   private registerUserJoinedRoom() {
@@ -111,6 +107,7 @@ export class PokerComponent implements OnInit, OnDestroy {
     this.room.users = data.room.users.map((elem: any) => {
       const user = new User();
       user.vote = user.status = elem.vote;
+      markClass(user);
       if (this.user.id === elem.id) {
         elem.status = this.user.vote;
       }
@@ -143,6 +140,7 @@ export class PokerComponent implements OnInit, OnDestroy {
 
   valueClicked(value: string): void {
     this.user.vote = this.user.status = value;
+    this.user.class = 'bg-success';
   }
 
   ngOnDestroy(): void {
@@ -157,5 +155,21 @@ export class PokerComponent implements OnInit, OnDestroy {
     this.activeRouteSubscription?.unsubscribe();
     this.otherUserVoteSubscription?.unsubscribe();
   }
+}
 
+function markClass(element: User): void {
+  if (element.status !== '?') {
+    element.class = 'bg-success';
+    return;
+  }
+  if (element.status == '?') {
+    element.class = 'bg-warning';
+  }
+}
+
+function updateStatus(data: any) {
+  data.users.forEach((element: User) => {
+    element.status = element.vote;
+    markClass(element);
+  });
 }

@@ -6,6 +6,6 @@
                 {{item.description}}
             </ng-container>
         </div>
-        <span class="badge bg-primary rounded-pill">{{item.status || 0 }}</span>
+        <span class="badge rounded-pill" [ngClass]="item.class == null ? 'bg-primary' :item.class ">{{item.status || 0 }}</span>
     </li>
 </ol>
