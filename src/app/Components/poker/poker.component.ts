@@ -132,6 +132,20 @@ export class PokerComponent implements OnInit, OnDestroy {
 
   showResultsClicked(): void {
     this.pokerService.showResults(this.room.id);
+    this.sortUsersVote();
+    
+  }
+
+  /**
+   * Sorts Users array to grouping them by vote value each time results is displayed
+   *
+   * @memberof PokerComponent
+   */
+  sortUsersVote(): void {
+    if(this.room.users){
+      this.room.users.sort((x, y) => (x.vote > y.vote) ? 1 : -1);
+    }
+   
   }
 
   showVotesClicked(): void {
