@@ -1,5 +1,5 @@
 <div class="myContainer">
-    <div *ngFor="let item of numbers">
-        <app-card [displayValue]="item" (cardClickedEvent)="cardClicked($event)" ></app-card>
+    <div *ngFor="let item of numbers; let i=index">
+        <app-card [displayValue]="item" (cardClickedEvent)="cardClicked($event)" [ngClass]="i % 2 ? 'black' : 'red'"></app-card>
     </div>
 </div>

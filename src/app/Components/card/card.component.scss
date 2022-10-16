@@ -5,6 +5,14 @@
     font-family: "Ledger", serif;
 }
 
+:host.red .heart.firstHeart{
+    color: red;
+}
+
+:host.red .heart.lastHeart {
+    color: red;
+}
+
 .heart {
     position: absolute;
     font-size: 24px;

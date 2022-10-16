@@ -12,9 +12,14 @@ export class CardComponent {
   @Output() cardClickedEvent = new EventEmitter<CardComponent>();
 
   @ViewChild('card') card: ElementRef | undefined;
+  
+  icons = ['♠', '♥', '♦', '♣'];
+  icon: string;
 
   constructor(private renderer2: Renderer2, private cardService: CardsService) {
     this.cardService.registerCard(this);
+    const index = generateRandomInt(0, 3);
+    this.icon = this.icons[index];
   }
 
   cardClicked(): void {
@@ -33,4 +38,8 @@ export class CardComponent {
     }
   }
 
+}
+
+function generateRandomInt(min: number, max: number): number {
+  return Math.floor((Math.random() * (max - min)) + min);
 }
