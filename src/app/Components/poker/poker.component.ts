@@ -6,6 +6,7 @@ import { PokerService } from 'src/app/services/poker.service';
 import { Room } from 'src/contracts/room';
 import { StateRoom } from 'src/contracts/stateRoom';
 import { User } from 'src/contracts/user';
+import { AskQuestionDialogComponent } from '../ask-question-dialog/ask-question-dialog.component';
 import { UserNameModalComponent } from '../user-name-modal/user-name-modal.component';
 
 @Component({
@@ -28,6 +29,7 @@ export class PokerComponent implements OnInit, OnDestroy {
   userVotedSubscription: any;
   activeRouteSubscription: any;
   otherUserVoteSubscription: any;
+  askQuestionRef: any;
 
   constructor(public dialog: MatDialog, private pokerService: PokerService,
     private activatedRoute: ActivatedRoute, private cardsService: CardsService) {
@@ -56,6 +58,7 @@ export class PokerComponent implements OnInit, OnDestroy {
   }
 
   calculateState(data: StateRoom): boolean {
+    this.askQuestionRef?.close();
     return data == StateRoom.vote ? false : true;
   }
 
@@ -131,7 +134,25 @@ export class PokerComponent implements OnInit, OnDestroy {
   }
 
   showResultsClicked(): void {
+    const result = this.validateAllVotes();
+    if (!result) {
+      this.askQuestionRef = this.dialog.open(AskQuestionDialogComponent, {
+        width: '350px',
+        data: this.room.id
+      });
+      return;
+    }
     this.pokerService.showResults(this.room.id);
+  }
+
+  validateAllVotes(): boolean {
+    let result = true;
+    this.room.users.forEach((element: User) => {
+      if (element.vote === '?') {
+        result = false;
+      }
+    });
+    return result;
   }
 
   showVotesClicked(): void {

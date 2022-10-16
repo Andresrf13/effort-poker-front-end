@@ -22,6 +22,7 @@ import { EstimationBoardComponent } from './Components/estimation-board/estimati
 import { CardComponent } from './Components/card/card.component';
 import { ResultsComponent } from './Components/results/results.component';
 import { LoadingComponent } from './Components/loading/loading.component';
+import { AskQuestionDialogComponent } from './Components/ask-question-dialog/ask-question-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { LoadingComponent } from './Components/loading/loading.component';
     EstimationBoardComponent,
     CardComponent,
     ResultsComponent,
-    LoadingComponent
+    LoadingComponent,
+    AskQuestionDialogComponent
   ],
   imports: [
     BrowserModule,

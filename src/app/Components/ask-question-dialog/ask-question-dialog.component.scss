@@ -1,0 +1,9 @@
+@use "../../../styles/variables" as *;
+
+.usernameInput:focus {
+    box-shadow: 1px 1px 7px 7px rgb(13 110 253 / 25%);
+}
+
+button {
+    margin: $default_margin;
+}
